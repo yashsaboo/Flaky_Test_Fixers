@@ -1,6 +1,6 @@
 # Flaky_Test_Fixers
 
-This repo is useful for developers who want to fix the flaky tests in pytest framework found by [pytest-random-order](https://pypi.org/project/pytest-random-order/) plugin when --flaky-test-finder flag is enabled. 
+This new feature is useful for developers who want to fix the flaky tests in pytest framework found by [pytest-random-order](https://pypi.org/project/pytest-random-order/) plugin when `--flaky-test-finder` flag is enabled. 
 
 Currently the plugin is yet to be integrated with the plugin, but can be found [here](https://github.com/yashsaboo/pytest-random-order/tree/add_flaky_test_finder).
 
@@ -9,12 +9,13 @@ Currently the plugin is yet to be integrated with the plugin, but can be found [
 - pytest
 ```
 pip install pytest
+pip install pytest-random-order
 ```
 
 ## Files
 
 ### polluter_minimiser
-This file helps in minimising list of tests which can be "possible" polluters
+This file helps in minimising list of tests which can be "potential" polluter(s).
 
 #### How to Run
 ```
@@ -36,7 +37,7 @@ python polluterMinimiser.py -if flaky_test.json -of polluter_minimised_file.json
 ```
 
 ##### Input
-*flaky_test.json* has the output generated from pytest-random-order  which has list of flaky tests featuing both the passed order and failed orders. It looks like the following:
+*flaky_test.json* has the output generated from pytest-random-order flaky-test-finder which has list of flaky tests featuing both the passed order and failed orders. It looks like the following:
 ```
 {
   "dummyPytestFile.py::test_example_3": {
@@ -97,7 +98,7 @@ The output *polluterminimisedfile.json* looks like this which identifies the cor
 ```
 
 #### Test Run On xarray
-The current commit has no flaky tests since we fixed in our [Pull Request](https://github.com/pydata/xarray/pull/4600). Thus, we tested it a commit which had flaky test.
+The current commit has no flaky tests since we fixed in our [Pull Request](https://github.com/pydata/xarray/pull/4600). Thus, we tested the functionality on a commit which had flaky test.
 ##### Flaky Test Commit
 ```
 commit a2192158e3fbb94b2d972ff3e1693fffa65e50be       
