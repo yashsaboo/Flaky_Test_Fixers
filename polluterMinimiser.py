@@ -7,15 +7,15 @@ import os.path
 
 """
 Available Flags
-    '-ifp', '--input_file', 
-    '-ofp', '--output_file',
+    '-if', '--input_file', 
+    '-of', '--output_file',
     '-tp', '--tests_path'
 """
 def parse_options():
     '''Gets command line arguments'''
     parser = argparse.ArgumentParser(description='Get minimised polluters')
-    parser.add_argument('-ifp', '--input_file', help='This is the file path for the input filename.')
-    parser.add_argument('-ofp', '--output_file', help='This is the file path for the output filename.')
+    parser.add_argument('-if', '--input_file', help='This is the file path for the input filename.')
+    parser.add_argument('-of', '--output_file', help='This is the file path for the output filename.')
     parser.add_argument('-tp', '--tests_path', help='This is the directory path for tests to be ran. It is relative to where the script is being run from. If this flag is not on the the tests will be looked in the current directory')
     return parser.parse_args()
 
