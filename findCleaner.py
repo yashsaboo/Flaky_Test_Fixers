@@ -1,9 +1,10 @@
 import os, sys
-from subprocess import check_output
-from subprocess import PIPE,Popen
 import json 
 import argparse
 import os.path
+
+from subprocess import check_output
+from subprocess import PIPE,Popen
 
 """
 Available Flags
@@ -11,6 +12,8 @@ Available Flags
     '-of', '--output_file',
     '-tp', '--tests_path'
 """
+
+
 def parse_options():
     '''Gets command line arguments'''
     parser = argparse.ArgumentParser(description='Get cleaners for the polluters of the flaky test')
@@ -18,6 +21,7 @@ def parse_options():
     parser.add_argument('-of', '--output_file', help='This specifies the output filename.')
     parser.add_argument('-tp', '--tests_path', help='This is the directory path for tests to be ran. It is relative to where the script is being run from. If this flag is not on the the tests will be looked in the current directory')
     return parser.parse_args()
+
 
 def executeTests(args, listOfTests):
     argumentVal = ['pytest', '-v']
@@ -30,6 +34,7 @@ def executeTests(args, listOfTests):
     testRunOutput = testRunOutput.communicate()[0]
     # print(testRunOutput.decode("utf-8"))
     return testRunOutput.decode("utf-8")
+
 
 def find_cleaner(args):
 
@@ -88,6 +93,7 @@ def find_cleaner(args):
     except: #handle other exceptions such as attribute errors
         print('Unexpected error raised by pytest-random-order plugin: {}. {}, line: {}'.format(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2].tb_lineno))
 
+        
 if __name__ == '__main__':
     args = parse_options()
     print(args)
