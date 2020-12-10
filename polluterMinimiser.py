@@ -14,8 +14,8 @@ Available Flags
 def parse_options():
     '''Gets command line arguments'''
     parser = argparse.ArgumentParser(description='Get minimised polluters')
-    parser.add_argument('-if', '--input_file', help='This is the file path for the input filename.')
-    parser.add_argument('-of', '--output_file', help='This is the file path for the output filename.')
+    parser.add_argument('-if', '--input_file', help='This specifies the input filename which is generated using pytest-random-order flaky-test-finder capability.')
+    parser.add_argument('-of', '--output_file', help='This specifies the output filename.')
     parser.add_argument('-tp', '--tests_path', help='This is the directory path for tests to be ran. It is relative to where the script is being run from. If this flag is not on the the tests will be looked in the current directory')
     return parser.parse_args()
 
@@ -34,7 +34,7 @@ def executeTests(args, listOfTests):
 def minimize_polluters(args):
 
     if args.input_file is None or not os.path.isfile(args.input_file):
-        print("Invalid Input FilePath")
+        print("Invalid Input File")
         return
 
     if args.tests_path is None:
@@ -43,7 +43,7 @@ def minimize_polluters(args):
         print("Invalid Test Directory Path")
         return
 
-    # Stores the "original_test_name": { "order" = [list of tests], "polluter" = [list of tests], "sofware_defect" = True/False}
+    # Stores the "original_test_name": { "flaky_failed_order" = [list of tests], "polluter" = [list of tests], "sofware_defect" = True/False}
     outputDict = {}
 
     with open(args.input_file, "r") as inputFlakyTestListFile:
@@ -63,7 +63,7 @@ def minimize_polluters(args):
             for runs in flaky_test_log_data[flaky_test]:
                 if flaky_test_log_data[flaky_test][runs]['outcome'] == 'failed': #Get the failed order
                     failed_order = flaky_test_log_data[flaky_test][runs]['order']
-
+                    outputDict[flaky_test]["flaky_failed_order"] = flaky_test_log_data[flaky_test][runs]['order']
                     # Isolation Check for Flaky test or software defect
                     testRunOutput = executeTests(args,[flaky_test])
                     print(testRunOutput)
@@ -113,8 +113,13 @@ def minimize_polluters(args):
 
                 print("Binary Search done")
 
-                #Export the flaky test log data to file
-    
+        # add additional fields to the logged dictionary: "list_of_tests_ran", "random_order_seed", "random_order_bucket", flaky_test_repeat_count"
+        outputDict["list_of_tests_ran"] =  flaky_test_log_data["list_of_tests_ran"]
+        outputDict["random_order_seed"] = flaky_test_log_data["random_order_seed"]
+        outputDict["random_order_bucket"] = flaky_test_log_data["random_order_bucket"]
+        outputDict["flaky_test_finder"] = flaky_test_log_data["flaky_test_finder"]
+
+    #Export the flaky test log data to file
     try:
         with open(args.output_file,"w+") as f:
             json.dump(outputDict,f)
