@@ -9,7 +9,6 @@ Currently the plugin is yet to be integrated with the plugin, but can be found [
 - pytest
 ```
 pip install pytest
-pip install pytest-random-order
 ```
 
 ## Files
