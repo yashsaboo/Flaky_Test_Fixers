@@ -7,15 +7,15 @@ import os.path
 
 """
 Available Flags
-    '-ifp', '--input_filepath', 
-    '-ofp', '--output_filepath',
+    '-ifp', '--input_file', 
+    '-ofp', '--output_file',
     '-tp', '--tests_path'
 """
 def parse_options():
     '''Gets command line arguments'''
     parser = argparse.ArgumentParser(description='Get minimised polluters')
-    parser.add_argument('-ifp', '--input_filepath', help='This is the file path for the input filename.')
-    parser.add_argument('-ofp', '--output_filepath', help='This is the file path for the output filename.')
+    parser.add_argument('-ifp', '--input_file', help='This is the file path for the input filename.')
+    parser.add_argument('-ofp', '--output_file', help='This is the file path for the output filename.')
     parser.add_argument('-tp', '--tests_path', help='This is the directory path for tests to be ran. It is relative to where the script is being run from. If this flag is not on the the tests will be looked in the current directory')
     return parser.parse_args()
 
@@ -33,7 +33,7 @@ def executeTests(args, listOfTests):
 
 def minimize_polluters(args):
 
-    if args.input_filepath is None or not os.path.isfile(args.input_filepath):
+    if args.input_file is None or not os.path.isfile(args.input_file):
         print("Invalid Input FilePath")
         return
 
@@ -46,7 +46,7 @@ def minimize_polluters(args):
     # Stores the "original_test_name": { "order" = [list of tests], "polluter" = [list of tests], "sofware_defect" = True/False}
     outputDict = {}
 
-    with open(args.input_filepath, "r") as inputFlakyTestListFile:
+    with open(args.input_file, "r") as inputFlakyTestListFile:
         flaky_test_log_data = json.load(inputFlakyTestListFile)
         # print(flaky_test_log_data)
 
@@ -116,7 +116,7 @@ def minimize_polluters(args):
                 #Export the flaky test log data to file
     
     try:
-        with open(args.output_filepath,"w+") as f:
+        with open(args.output_file,"w+") as f:
             json.dump(outputDict,f)
     except IOError as e:
         print("I/O error({0}): {1}".format(e.errno, e.strerror))
