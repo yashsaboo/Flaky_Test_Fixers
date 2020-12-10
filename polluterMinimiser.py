@@ -43,7 +43,7 @@ def minimize_polluters(args):
         print("Invalid Test Directory Path")
         return
 
-    # Stores the "original_test_name": { "flaky_failed_order" = [list of tests], "polluter" = [list of tests], "sofware_defect" = True/False}
+    # Stores the "original_test_name": { "flaky_failed_order" = [list of tests], "polluter" = [list of tests], "software_defect" = True/False}
     outputDict = {}
 
     with open(args.input_file, "r") as inputFlakyTestListFile:
@@ -70,10 +70,10 @@ def minimize_polluters(args):
 
                     if testRunOutput.find('1 passed') != -1:
                         print(flaky_test.strip() + " is NOT a Software Defect")
-                        outputDict[flaky_test]["sofware_defect"] = False
+                        outputDict[flaky_test]["software_defect"] = False
                     else:
                         print(flaky_test.strip() + " is a Software Defect")
-                        outputDict[flaky_test]["sofware_defect"] = True
+                        outputDict[flaky_test]["software_defect"] = True
 
                     print("Isolation Check done")
 

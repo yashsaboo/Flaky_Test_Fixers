@@ -79,7 +79,7 @@ The output *polluterminimisedfile.json* looks like this which identifies the cor
       "dummyPytestFile.py::test_example_1",
       "dummyPytestFile.py::test_example_3"
     ],
-    "sofware_defect": false,
+    "software_defect": false,
     "polluter": [
       "dummyPytestFile.py::test_example_1"
     ]
@@ -118,7 +118,7 @@ The output *polluterminimisedfile.json* looks like this which identifies the cor
 ```
 {
   "xarray/tests/test_plot.py::TestImshow::test_origin_overrides_xyincrease": {
-    "sofware_defect": false,
+    "software_defect": false,
     "polluter": [
       "xarray/tests/test_plot.py::TestAxesKwargs::test_xscale_kwarg"
     ]
