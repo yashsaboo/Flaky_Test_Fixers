@@ -1,19 +1,13 @@
 import pytest
 import random
 
-# def test_example_1():
-#   assert random.choice([True, True])
-# def test_example_2():
-#   assert random.choice([False, False])
-# def test_example_3():
-#   assert random.choice([True, False])
-def test_example_4():
+def test_example_1():
   with open("dummyFileForFlakyTest.txt", "w") as outputFile:
     outputFile.write("100")
   assert True
-def test_example_5():
+def test_example_2():
   assert True
-def test_example_6():
+def test_example_3():
   with open("dummyFileForFlakyTest.txt", "r") as inputFile:
     val = inputFile.read().splitlines()
   with open("dummyFileForFlakyTest.txt", "w") as outputFile:
